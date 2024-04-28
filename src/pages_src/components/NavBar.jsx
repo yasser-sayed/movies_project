@@ -189,12 +189,7 @@ const NavBar = () => {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button
-            color={theme ? "black" : "white"}
-            variant="outlined"
-            size="sm"
-            fullWidth
-          >
+          <Button color="blue" variant="outlined" size="sm" fullWidth>
             Login
           </Button>
         </div>
