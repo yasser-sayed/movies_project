@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.activePage {
+  @apply text-blue-700 dark:text-blue-500;
+}
+
+.slick-arrow:before {
+  color: red !important;
+}
+
+.slick-dots li button:before {
+  @apply dark:text-gray-300;
+}
+
+.slick-dots li.slick-active button:before {
+  @apply dark:text-white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  @apply bg-blue-900;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 20px rgb(13 71 161);
+  border-radius: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-400 rounded-xl;
+}

@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button } from "@material-tailwind/react";
+import React from "react";
+import NavBar from "./pages_src/components/NavBar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages_src/home/Home";
+import Movies from "./pages_src/movies/Movies";
+import Series from "./pages_src/series/Series";
+import ContactUs from "./pages_src/ContactUs";
+import PageError from "./pages_src/PageError";
+import Footer from "./pages_src/components/Footer";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen  dark:text-gray-300">
+      <NavBar />
 
-export default App
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/series" element={<Series />} />
+        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="*" element={<PageError />} />
+      </Routes>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
