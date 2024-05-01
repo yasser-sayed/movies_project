@@ -4,31 +4,39 @@ import HeaderH from "./components/HeaderH";
 import SliderH from "./components/SliderH";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getPopularMovies,
+  getSliderMovies,
   getTopMovies,
 } from "../../redux_system/slices/movies_Slices/homeMoviesSlice";
 import {
-  getPopularSeries,
+  getSliderSeries,
   getTopSeries,
 } from "../../redux_system/slices/series_Slices/homeSeriesSlice";
 import TopRatedH from "./components/TopRatedH";
 
 const Home = () => {
   const {
-    popMovies: { results: popMov },
-    topMovies: { results: topMov },
+    sliderMLoading,
+    topMLoading,
+    topMErr,
+    sliderMErr,
+    sliderMovies,
+    topMovies,
   } = useSelector((state) => state.homeMovies);
 
   const {
-    popSeries: { results: popSer },
-    topSeries: { results: topSer },
+    sliderSLoading,
+    topSLoading,
+    topSErr,
+    sliderSErr,
+    sliderSeries,
+    topSeries,
   } = useSelector((state) => state.homeSeries);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPopularMovies());
-    dispatch(getPopularSeries());
+    dispatch(getSliderMovies());
+    dispatch(getSliderSeries());
     dispatch(getTopMovies());
     dispatch(getTopSeries());
   }, []);
@@ -37,11 +45,33 @@ const Home = () => {
     <div className="px-10 md:px-16">
       <HeaderH />
 
-      <SliderH content={popMov} title={"Movies"} />
-      <SliderH content={popSer} title={"Series"} />
+      <SliderH
+        content={sliderMovies}
+        title={"Movies"}
+        popLoading={sliderMLoading}
+        popErr={sliderMErr}
+      />
+      <SliderH
+        content={sliderSeries}
+        title={"Series"}
+        popLoading={sliderSLoading}
+        popErr={sliderSErr}
+      />
 
-      <TopRatedH content={topMov} title={"Movies"} showName={true} />
-      <TopRatedH content={topSer} title={"Series"} showName={false} />
+      <TopRatedH
+        content={topMovies}
+        title={"Movies"}
+        topLoading={topMLoading}
+        topErr={topMErr}
+        showName={true}
+      />
+      <TopRatedH
+        content={topSeries}
+        title={"Series"}
+        topLoading={topSLoading}
+        topErr={topSErr}
+        showName={false}
+      />
     </div>
   );
 };

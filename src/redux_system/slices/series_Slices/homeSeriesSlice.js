@@ -2,24 +2,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const data = {
-  popSeries: [],
-  popSLoading: false,
-  popSErr: null,
+  sliderSeries: [],
+  sliderSLoading: false,
+  sliderSErr: null,
   topSeries: [],
   topSLoading: false,
   topSErr: null,
 };
 
-//popular series axios
-export const getPopularSeries = createAsyncThunk(
-  "getPopularSeries",
+//Sliderular series axios
+export const getSliderSeries = createAsyncThunk(
+  "getSliderSeries",
   async (NU, thunkApi) => {
     const { rejectWithValue } = thunkApi;
 
     try {
-      const popSeriesData = await axios({
+      const sliderSeriesData = await axios({
         method: "GET",
-        url: "https://api.themoviedb.org/3/tv/popular",
+        url: "https://api.themoviedb.org/3/tv/airing_today",
         params: { language: "en-US", page: "1" },
         headers: {
           accept: "application/json",
@@ -28,9 +28,9 @@ export const getPopularSeries = createAsyncThunk(
         },
       });
 
-      return popSeriesData.data;
+      return sliderSeriesData.data;
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -55,7 +55,7 @@ export const getTopSeries = createAsyncThunk(
 
       return topSeriesData.data;
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -64,19 +64,19 @@ const homeSeriesSlice = createSlice({
   name: "homeSeries",
   initialState: data,
   extraReducers: (builder) => {
-    //popular series handler
-    builder.addCase(getPopularSeries.pending, (state) => {
-      state.popSLoading = true;
+    //Slider series handler
+    builder.addCase(getSliderSeries.pending, (state) => {
+      state.sliderSLoading = true;
     });
 
-    builder.addCase(getPopularSeries.fulfilled, (state, { payload }) => {
-      state.popSLoading = false;
-      state.popSeries = payload;
+    builder.addCase(getSliderSeries.fulfilled, (state, { payload }) => {
+      state.sliderSLoading = false;
+      state.sliderSeries = payload.results;
     });
 
-    builder.addCase(getPopularSeries.rejected, (state, { payload }) => {
-      state.popSLoading = false;
-      state.popSErr = payload;
+    builder.addCase(getSliderSeries.rejected, (state, { payload }) => {
+      state.sliderSLoading = false;
+      state.sliderSErr = payload.message;
     });
 
     //top series handler
@@ -86,12 +86,12 @@ const homeSeriesSlice = createSlice({
 
     builder.addCase(getTopSeries.fulfilled, (state, { payload }) => {
       state.topSLoading = false;
-      state.topSeries = payload;
+      state.topSeries = payload.results;
     });
 
     builder.addCase(getTopSeries.rejected, (state, { payload }) => {
       state.topSLoading = false;
-      state.topSErr = payload;
+      state.topSErr = payload.message;
     });
   },
 });

@@ -2,24 +2,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const data = {
-  popMovies: [],
-  popMLoading: false,
-  popMErr: null,
+  sliderMovies: [],
+  sliderMLoading: false,
+  sliderMErr: null,
   topMovies: [],
   topMLoading: false,
   topMErr: null,
 };
 
 //popular movies axios
-export const getPopularMovies = createAsyncThunk(
-  "getPopularMovies",
+export const getSliderMovies = createAsyncThunk(
+  "getSliderMovies",
   async (NU, thunkApi) => {
     const { rejectWithValue } = thunkApi;
 
     try {
-      const popularMoviesData = await axios({
+      const sliderMoviesData = await axios({
         method: "GET",
-        url: "https://api.themoviedb.org/3/movie/popular",
+        url: "https://api.themoviedb.org/3/movie/now_playing",
         params: { language: "en-US", page: "1" },
         headers: {
           accept: "application/json",
@@ -28,7 +28,7 @@ export const getPopularMovies = createAsyncThunk(
         },
       });
 
-      return popularMoviesData.data;
+      return sliderMoviesData.data;
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -65,18 +65,18 @@ const homeMoviesSlice = createSlice({
   initialState: data,
   extraReducers: (builder) => {
     //popular movies handler
-    builder.addCase(getPopularMovies.pending, (state) => {
-      state.popMLoading = true;
+    builder.addCase(getSliderMovies.pending, (state) => {
+      state.sliderMLoading = true;
     });
 
-    builder.addCase(getPopularMovies.fulfilled, (state, { payload }) => {
-      state.popMLoading = false;
-      state.popMovies = payload;
+    builder.addCase(getSliderMovies.fulfilled, (state, { payload }) => {
+      state.sliderMLoading = false;
+      state.sliderMovies = payload.results;
     });
 
-    builder.addCase(getPopularMovies.rejected, (state, { payload }) => {
-      state.popMLoading = true;
-      state.popMErr = payload.message;
+    builder.addCase(getSliderMovies.rejected, (state, { payload }) => {
+      state.sliderMLoading = false;
+      state.sliderMErr = payload.message;
     });
 
     //popular movies handler
@@ -86,11 +86,11 @@ const homeMoviesSlice = createSlice({
 
     builder.addCase(getTopMovies.fulfilled, (state, { payload }) => {
       state.topMLoading = false;
-      state.topMovies = payload;
+      state.topMovies = payload.results;
     });
 
     builder.addCase(getTopMovies.rejected, (state, { payload }) => {
-      state.topMLoading = true;
+      state.topMLoading = false;
       state.topMErr = payload.message;
     });
   },

@@ -1,7 +1,10 @@
 import React from "react";
 import { Button, Typography } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
 
 const HeaderH = () => {
+  const { theme } = useSelector((state) => state.config);
+
   return (
     <div className="my-5">
       <Typography variant="h2" color="blue" className="text-center">
@@ -10,7 +13,7 @@ const HeaderH = () => {
 
       <div className="flex flex-col lg:flex-row">
         <section className="flex my-2 flex-col items-center justify-center gap-5 lg:w-1/2">
-          <Typography variant="h3" color="red">
+          <Typography variant="h3" color={theme ? "black" : "red"}>
             Sort By
           </Typography>
 
@@ -19,7 +22,7 @@ const HeaderH = () => {
               size="sm"
               className="lowercase"
               variant="outlined"
-              color="red"
+              color={theme ? "black" : "red"}
             >
               Title
             </Button>
@@ -27,7 +30,7 @@ const HeaderH = () => {
               size="sm"
               className="lowercase"
               variant="outlined"
-              color="red"
+              color={theme ? "black" : "red"}
             >
               Poplarity
             </Button>
@@ -35,7 +38,7 @@ const HeaderH = () => {
               size="sm"
               className="lowercase"
               variant="outlined"
-              color="red"
+              color={theme ? "black" : "red"}
             >
               Date
             </Button>
@@ -43,7 +46,7 @@ const HeaderH = () => {
               size="sm"
               className="lowercase"
               variant="outlined"
-              color="red"
+              color={theme ? "black" : "red"}
             >
               Ratin
             </Button>
@@ -51,7 +54,7 @@ const HeaderH = () => {
         </section>
 
         <section className="flex my-2 flex-col items-center justify-center gap-5 lg:w-1/2">
-          <Typography variant="h3" color="red">
+          <Typography variant="h3" color={theme ? "black" : "red"}>
             Sort Order
           </Typography>
 
@@ -60,7 +63,7 @@ const HeaderH = () => {
               size="sm"
               className="lowercase"
               variant="outlined"
-              color="red"
+              color={theme ? "black" : "red"}
             >
               Descingin
             </Button>
@@ -68,7 +71,7 @@ const HeaderH = () => {
               size="sm"
               className="lowercase"
               variant="outlined"
-              color="red"
+              color={theme ? "black" : "red"}
             >
               Ascinding
             </Button>

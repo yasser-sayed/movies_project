@@ -1,8 +1,10 @@
 import React from "react";
 import Slider from "react-slick";
 import { Typography } from "@material-tailwind/react";
+import MessageError from "../../components/MessageError";
+import Loading from "../../components/Loading";
 
-const SliderH = ({ content, title }) => {
+const SliderH = ({ content, title, popLoading, popErr }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -26,6 +28,7 @@ const SliderH = ({ content, title }) => {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
+          dots: false,
 
           initialSlide: 2,
         },
@@ -33,6 +36,7 @@ const SliderH = ({ content, title }) => {
       {
         breakpoint: 480,
         settings: {
+          dots: false,
           slidesToShow: 1,
         },
       },
@@ -45,17 +49,23 @@ const SliderH = ({ content, title }) => {
         {title}
       </Typography>
 
-      <Slider {...settings}>
-        {content?.map((mov, key) => (
-          <div key={key}>
-            <img
-              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}
-              alt="movie image"
-              className="px-4"
-            />
-          </div>
-        ))}
-      </Slider>
+      {popLoading ? (
+        <Loading />
+      ) : popErr ? (
+        <MessageError err={popErr} />
+      ) : (
+        <Slider {...settings}>
+          {content?.map((mov, key) => (
+            <div key={key}>
+              <img
+                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}
+                alt="movie image"
+                className="px-4"
+              />
+            </div>
+          ))}
+        </Slider>
+      )}
     </>
   );
 };

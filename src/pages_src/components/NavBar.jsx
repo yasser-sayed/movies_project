@@ -122,7 +122,7 @@ const NavBar = () => {
   return (
     <Navbar
       color="gray"
-      className="sticky top-0 z-10 mx-auto max-w-screen-xl px-4 py-2 dark:bg-[#212529] dark:text-gray-300"
+      className="sticky top-0 z-10 mx-auto max-w-screen-xl px-4 py-2 bg-[#DEEEF5] dark:bg-[#212529] dark:text-gray-300"
     >
       <div className="flex items-center justify-start text-blue-gray-900">
         <Typography
