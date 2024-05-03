@@ -7,15 +7,17 @@ import Series from "./pages_src/series/Series";
 import ContactUs from "./pages_src/ContactUs";
 import PageError from "./pages_src/PageError";
 import Footer from "./pages_src/components/Footer";
+import MovDet from "./pages_src/movie_details/MovDet";
 
 const App = () => {
   return (
-    <div className="min-h-screen  dark:text-gray-300">
+    <div className="min-h-screen  dark:text-gray-300 relative">
       <NavBar />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/movie/:movId/title/:movTitle" element={<MovDet />} />
         <Route path="/series" element={<Series />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="*" element={<PageError />} />

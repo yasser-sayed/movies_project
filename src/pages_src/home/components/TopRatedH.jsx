@@ -10,6 +10,7 @@ import Rating from "react-rating";
 import { IoStar, IoStarOutline } from "react-icons/io5";
 import MessageError from "./../../components/MessageError";
 import Loading from "../../components/Loading";
+import { Link } from "react-router-dom";
 
 const TopRatedH = ({ content, title, showName, topLoading, topErr }) => {
   return (
@@ -61,9 +62,13 @@ const TopRatedH = ({ content, title, showName, topLoading, topErr }) => {
                 </div>
               </CardBody>
               <CardFooter className="pt-0">
-                <Button variant="outlined" color="blue" className="">
-                  Show Details
-                </Button>
+                <Link
+                  to={showName ? `/movie/${mov.id}/title/${mov.id}` : "/series"}
+                >
+                  <Button variant="outlined" color="blue" className="">
+                    Show Details
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           ))

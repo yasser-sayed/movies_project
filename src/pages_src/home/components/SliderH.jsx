@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import { Typography } from "@material-tailwind/react";
 import MessageError from "../../components/MessageError";
 import Loading from "../../components/Loading";
+import { Link } from "react-router-dom";
 
 const SliderH = ({ content, title, popLoading, popErr }) => {
   const settings = {
@@ -57,11 +58,13 @@ const SliderH = ({ content, title, popLoading, popErr }) => {
         <Slider {...settings}>
           {content?.map((mov, key) => (
             <div key={key}>
-              <img
-                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}
-                alt="movie image"
-                className="px-4"
-              />
+              <Link to={`/movie/${mov.id}/title/${mov.title}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}
+                  alt="movie image"
+                  className="px-4"
+                />
+              </Link>
             </div>
           ))}
         </Slider>

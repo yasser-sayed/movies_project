@@ -36,10 +36,14 @@ const ContactUs = () => {
             publicKey: "dCvT675f8gKndvgyv",
           })
           .then(
-            () => {
-              setCheckInfo(
+            async () => {
+              await setCheckInfo(
                 "done, we will reaply to your message At the earliest"
               );
+
+              setTimeout(() => {
+                navigate("/");
+              }, 2000);
             },
             (error) => {
               setCheckInfo("netWork Error , please try again later");
