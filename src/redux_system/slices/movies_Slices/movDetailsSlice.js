@@ -3,15 +3,35 @@ import axios from "axios";
 
 //slice state
 const data = {
+  //modDetails
   movDet: [],
   movDetLoading: false,
   movDetErr: null,
+  //credits
   credits: null,
   creditsLoading: false,
   creditsErr: null,
+  //videos
   videos: [],
   videosLoading: false,
   videosErr: null,
+  //social
+  social: null,
+  socialLoading: false,
+  socialErr: null,
+  //keywords
+  keyWords: [],
+  keyWordsLoading: false,
+  keyWordsErr: null,
+  //reviews
+  reviews: [],
+  reviewsLoading: false,
+  reviewsErr: null,
+  //imgs
+  backDrops: [],
+  posters: [],
+  imgsLoading: false,
+  imgsErr: null,
 };
 
 //movie detais function
@@ -83,6 +103,99 @@ export const getVidoes = createAsyncThunk("getVidoes", async (id, thunkApi) => {
   }
 });
 
+//social function
+export const getSocial = createAsyncThunk("getSocial", async (id, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
+  try {
+    const socialData = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/movie/${id}/external_ids`,
+      params: { language: "en-US" },
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+      },
+    });
+
+    return socialData.data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});
+
+//keyWords function
+export const getKeyWords = createAsyncThunk(
+  "getKeyWords",
+  async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+
+    try {
+      const keyWordsData = await axios({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/movie/${id}/keywords`,
+        params: { language: "en-US" },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+        },
+      });
+
+      return keyWordsData.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+//reviews function
+export const getReviews = createAsyncThunk(
+  "getReviews",
+  async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+
+    try {
+      const reviewsData = await axios({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/movie/${id}/reviews`,
+        params: { language: "en-US" },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+        },
+      });
+
+      return reviewsData.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+//images function
+export const getImgs = createAsyncThunk("getImgs", async (id, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
+  try {
+    const imgsData = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/movie/${id}/images`,
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+      },
+    });
+
+    return imgsData.data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});
+
 //slice
 const movDetailsSlice = createSlice({
   name: "movDetails",
@@ -125,6 +238,59 @@ const movDetailsSlice = createSlice({
     builder.addCase(getVidoes.rejected, (state, { payload }) => {
       state.videosLoading = false;
       state.videosErr = payload.message;
+    });
+
+    //social handler
+    builder.addCase(getSocial.pending, (state) => {
+      state.socialLoading = true;
+    });
+    builder.addCase(getSocial.fulfilled, (state, { payload }) => {
+      state.socialLoading = false;
+      state.social = payload;
+    });
+    builder.addCase(getSocial.rejected, (state, { payload }) => {
+      state.socialLoading = false;
+      state.socialErr = payload.message;
+    });
+
+    //keyWords handler
+    builder.addCase(getKeyWords.pending, (state) => {
+      state.keyWordsLoading = true;
+    });
+    builder.addCase(getKeyWords.fulfilled, (state, { payload }) => {
+      state.keyWordsLoading = false;
+      state.keyWords = payload.keywords;
+    });
+    builder.addCase(getKeyWords.rejected, (state, { payload }) => {
+      state.keyWordsLoading = false;
+      state.keyWordsErr = payload.message;
+    });
+
+    //reviews handler
+    builder.addCase(getReviews.pending, (state) => {
+      state.reviewsLoading = true;
+    });
+    builder.addCase(getReviews.fulfilled, (state, { payload }) => {
+      state.reviewsLoading = false;
+      state.reviews = payload.results;
+    });
+    builder.addCase(getReviews.rejected, (state, { payload }) => {
+      state.reviewsLoading = false;
+      state.reviewsErr = payload.message;
+    });
+
+    //imgs handler
+    builder.addCase(getImgs.pending, (state) => {
+      state.imgsLoading = true;
+    });
+    builder.addCase(getImgs.fulfilled, (state, { payload }) => {
+      state.imgsLoading = false;
+      state.backDrops = payload.backdrops;
+      state.posters = payload.posters;
+    });
+    builder.addCase(getImgs.rejected, (state, { payload }) => {
+      state.imgsLoading = false;
+      state.imgsErr = payload.message;
     });
   },
 });

@@ -63,7 +63,9 @@ const TopRatedH = ({ content, title, showName, topLoading, topErr }) => {
               </CardBody>
               <CardFooter className="pt-0">
                 <Link
-                  to={showName ? `/movie/${mov.id}/title/${mov.id}` : "/series"}
+                  to={
+                    showName ? `/movie/${mov.id}/title/${mov.title}` : "/series"
+                  }
                 >
                   <Button variant="outlined" color="blue" className="">
                     Show Details

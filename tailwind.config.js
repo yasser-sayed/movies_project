@@ -8,7 +8,11 @@ module.exports = withMT({
     "path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        cast: "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+      },
+    },
     screens: {
       sm: "640px",
       // => @media (min-width: 640px) { ... }

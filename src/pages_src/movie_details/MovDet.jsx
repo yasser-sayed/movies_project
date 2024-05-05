@@ -3,37 +3,52 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   getCredits,
+  getKeyWords,
   getMovDet,
+  getSocial,
   getVidoes,
 } from "../../redux_system/slices/movies_Slices/movDetailsSlice";
 import MovHeader from "./components/MovHeader";
 import Loading from "../components/Loading";
+import SideBar from "./components/SideBar";
+import BodyDet from "./components/BodyDet";
+import MessageError from "../components/MessageError";
 
 const MovDet = () => {
   const { movId } = useParams();
-  const {
-    movDet,
-    movDetLoading,
-    credits,
-    creditsLoading,
-    videos,
-    videosLoading,
-  } = useSelector((state) => state.movDetails);
+  const { movDet, movDetLoading, movDetErr, credits, videos, videosLoading } =
+    useSelector((state) => state.movDetails);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMovDet(movId));
     dispatch(getCredits(movId));
     dispatch(getVidoes(movId));
+    dispatch(getSocial(movId));
+    dispatch(getKeyWords(movId));
   }, []);
 
   return (
     <div>
-      {movDetLoading || creditsLoading ? (
+      {movDetLoading ? (
         <Loading />
+      ) : movDetErr ? (
+        <MessageError err={movDetErr} />
       ) : (
         <MovHeader mov={movDet} credits={credits} videos={videos[0]} />
       )}
+
+      <section className="grid grid-cols-12 my-8 mx-4">
+        <BodyDet credits={credits} />
+
+        {movDetLoading ? (
+          <Loading />
+        ) : movDetErr ? (
+          <MessageError err={movDetErr} />
+        ) : (
+          <SideBar movDet={movDet} />
+        )}
+      </section>
     </div>
   );
 };
