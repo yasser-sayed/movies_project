@@ -13,9 +13,17 @@ import {
 import { useSelector } from "react-redux";
 
 const MediaDet = () => {
-  const { videos, posters, backDrops } = useSelector(
-    (state) => state.movDetails
-  );
+  const {
+    videos,
+    posters,
+    backDrops,
+    videosLoading,
+    videosErr,
+    postersLoading,
+    postersErr,
+    BackDropsLoading,
+    BackDropsErr,
+  } = useSelector((state) => state.movDetails);
   const { theme } = useSelector((state) => state.config);
 
   const [activeTab, setActiveTab] = useState("Videos");
@@ -23,17 +31,38 @@ const MediaDet = () => {
     {
       label: `Videos (${videos.length})`,
       value: "Videos",
-      desc: <VideoMed videos={videos} theme={theme} />,
+      desc: (
+        <VideoMed
+          videos={videos}
+          videosLoading={videosLoading}
+          videosErr={videosErr}
+          theme={theme}
+        />
+      ),
     },
     {
       label: `Back Drops (${backDrops.length})`,
       value: "Back Drops",
-      desc: <BackDropsMed theme={theme} backDrops={backDrops} />,
+      desc: (
+        <BackDropsMed
+          theme={theme}
+          backDrops={backDrops}
+          BackDropsLoading={BackDropsLoading}
+          BackDropsErr={BackDropsErr}
+        />
+      ),
     },
     {
       label: `Posters (${posters.length})`,
       value: "Posters",
-      desc: <PostersMed theme={theme} posters={posters} />,
+      desc: (
+        <PostersMed
+          theme={theme}
+          posters={posters}
+          postersLoading={postersLoading}
+          postersErr={postersErr}
+        />
+      ),
     },
   ];
 
@@ -56,7 +85,7 @@ const MediaDet = () => {
               key={value}
               value={value}
               onClick={() => setActiveTab(value)}
-              className={`                w-auto px-12 ${
+              className={`                 ${
                 activeTab === value
                   ? "text-purple-500 border-purple-500"
                   : "dark:text-white"

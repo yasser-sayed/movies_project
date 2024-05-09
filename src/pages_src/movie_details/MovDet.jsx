@@ -16,8 +16,9 @@ import MessageError from "../components/MessageError";
 
 const MovDet = () => {
   const { movId } = useParams();
-  const { movDet, movDetLoading, movDetErr, credits, videos, videosLoading } =
-    useSelector((state) => state.movDetails);
+  const { movDet, movDetLoading, movDetErr, credits, videos } = useSelector(
+    (state) => state.movDetails
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const MovDet = () => {
     dispatch(getVidoes(movId));
     dispatch(getSocial(movId));
     dispatch(getKeyWords(movId));
-  }, []);
+  }, [movId]);
 
   return (
     <div>
@@ -39,7 +40,11 @@ const MovDet = () => {
       )}
 
       <section className="grid grid-cols-12 my-8 mx-4">
-        <BodyDet credits={credits} />
+        <BodyDet
+          credits={credits}
+          movDet={movDet}
+          movDetLoading={movDetLoading}
+        />
 
         {movDetLoading ? (
           <Loading />

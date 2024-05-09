@@ -12,7 +12,7 @@ import ShowMoreText from "react-show-more-text";
 
 const ReviewsDet = ({ theme, reviews }) => {
   const [activeTab, setActiveTab] = useState("Reviews");
-  const { movTitle } = useParams();
+  const { movId, movTitle } = useParams();
 
   return (
     <div className="flex flex-col gap-4">
@@ -103,8 +103,8 @@ const ReviewsDet = ({ theme, reviews }) => {
         <Typography
           variant="paragraph"
           as={Link}
-          to="/"
-          className="text-blue-500 hover:text-blue-700"
+          to={`/movie/${movId}/title/${movTitle}/reviews`}
+          className="text-blue-500 hover:text-blue-700 inline-block self-start"
         >
           Read All Reviews
         </Typography>

@@ -32,6 +32,14 @@ const data = {
   posters: [],
   imgsLoading: false,
   imgsErr: null,
+  //recommindations
+  recom: [],
+  recomLoading: false,
+  recomErr: null,
+  //collections
+  collec: null,
+  collecLoading: false,
+  collecErr: null,
 };
 
 //movie detais function
@@ -196,6 +204,50 @@ export const getImgs = createAsyncThunk("getImgs", async (id, thunkApi) => {
   }
 });
 
+//recommindations function
+export const getRecom = createAsyncThunk("getRecom", async (id, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
+  try {
+    const recomData = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/movie/${id}/recommendations`,
+      params: { language: "en-US", page: "1" },
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+      },
+    });
+
+    return recomData.data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});
+
+//collections function
+export const getCollec = createAsyncThunk("getCollec", async (id, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
+  try {
+    const collecData = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/collection/${id}`,
+      params: { language: "en-US" },
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+      },
+    });
+
+    return collecData.data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});
+
 //slice
 const movDetailsSlice = createSlice({
   name: "movDetails",
@@ -291,6 +343,32 @@ const movDetailsSlice = createSlice({
     builder.addCase(getImgs.rejected, (state, { payload }) => {
       state.imgsLoading = false;
       state.imgsErr = payload.message;
+    });
+
+    //recommindations handler
+    builder.addCase(getRecom.pending, (state) => {
+      state.recomLoading = true;
+    });
+    builder.addCase(getRecom.fulfilled, (state, { payload }) => {
+      state.recomLoading = false;
+      state.recom = payload.results;
+    });
+    builder.addCase(getRecom.rejected, (state, { payload }) => {
+      state.recomLoading = false;
+      state.recomErr = payload.message;
+    });
+
+    //collections handler
+    builder.addCase(getCollec.pending, (state) => {
+      state.collecLoading = true;
+    });
+    builder.addCase(getCollec.fulfilled, (state, { payload }) => {
+      state.collecLoading = false;
+      state.collec = payload;
+    });
+    builder.addCase(getCollec.rejected, (state, { payload }) => {
+      state.collecLoading = false;
+      state.collecErr = payload.message;
     });
   },
 });

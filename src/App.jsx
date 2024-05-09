@@ -8,6 +8,12 @@ import ContactUs from "./pages_src/ContactUs";
 import PageError from "./pages_src/PageError";
 import Footer from "./pages_src/components/Footer";
 import MovDet from "./pages_src/movie_details/MovDet";
+import Cast from "./pages_src/cast/Cast";
+import Reviews from "./pages_src/reviews/Reviews";
+import Videos from "./pages_src/videos/Videos";
+import BackDrops from "./pages_src/backDrops/BackDrops";
+import Posters from "./pages_src/posters/Posters";
+import Collections from "./pages_src/collections/Collections";
 
 const App = () => {
   return (
@@ -15,11 +21,37 @@ const App = () => {
       <NavBar />
 
       <Routes>
+        {/* main pages */}
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movie/:movId/title/:movTitle" element={<MovDet />} />
         <Route path="/series" element={<Series />} />
         <Route path="/contactus" element={<ContactUs />} />
+
+        {/* details page routes */}
+        <Route path="/movie/:movId/title/:movTitle/cast" element={<Cast />} />
+        <Route
+          path="/movie/:movId/title/:movTitle/reviews"
+          element={<Reviews />}
+        />
+        <Route
+          path="/movie/:movId/title/:movTitle/videos"
+          element={<Videos />}
+        />
+        <Route
+          path="/movie/:movId/title/:movTitle/backdrops"
+          element={<BackDrops />}
+        />
+        <Route
+          path="/movie/:movId/title/:movTitle/posters"
+          element={<Posters />}
+        />
+        <Route
+          path="/collection/:collecId/title/:collecTitle"
+          element={<Collections />}
+        />
+
+        {/* error page */}
         <Route path="*" element={<PageError />} />
       </Routes>
 

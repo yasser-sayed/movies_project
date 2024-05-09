@@ -90,14 +90,14 @@ const SideBar = ({ movDet }) => {
       <div>
         <Typography variant="h5">Budget</Typography>
         <Typography variant="paragraph" color="blue">
-          ${movDet?.budget ? movDet.budget : "-"}
+          {movDet?.budget ? `$ ${movDet.budget.toLocaleString()}` : "-"}
         </Typography>
       </div>
 
       <div>
         <Typography variant="h5">Revenue</Typography>
         <Typography variant="paragraph" color="blue">
-          {movDet?.revenue ? movDet.revenue : "-"}
+          {movDet?.revenue ? `$ ${movDet.revenue.toLocaleString()}` : "-"}
         </Typography>
       </div>
 

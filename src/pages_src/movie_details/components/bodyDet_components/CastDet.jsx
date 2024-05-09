@@ -1,9 +1,11 @@
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const CastDet = ({ credits, theme }) => {
+  const { movId, movTitle } = useParams();
+
   return (
     <div>
       <Typography variant="h4" color="blue">
@@ -53,7 +55,7 @@ const CastDet = ({ credits, theme }) => {
             <CardBody className=" flex items-center justify-center h-full">
               <Typography
                 as={Link}
-                to="/"
+                to={`/movie/${movId}/title/${movTitle}/cast`}
                 variant="paragraph"
                 color={theme ? "blue-gray" : "white"}
                 className="mb-2 hover:text-blue-500 flex items-center justify-center gap-2"
@@ -68,7 +70,7 @@ const CastDet = ({ credits, theme }) => {
       <Typography
         as={Link}
         variant="paragraph"
-        to="/"
+        to={`/movie/${movId}/title/${movTitle}/cast`}
         className="text-blue-400 hover:text-blue-700 inline-block"
       >
         Full Cast & Crew
