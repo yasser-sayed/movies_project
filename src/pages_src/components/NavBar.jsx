@@ -120,10 +120,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <Navbar
-      color="gray"
-      className="sticky top-0 z-40 mx-auto max-w-screen-xl rounded-none lg:rounded-lg px-4 py-2 bg-[#DEEEF5] dark:bg-[#212529] dark:text-gray-300"
-    >
+    <Navbar className="sticky top-0 z-40 mx-auto max-w-screen-xl rounded-none lg:rounded-lg border-0 px-4 py-2 bg-transparent bg-[#a0adf5] dark:bg-[#212529] dark:text-gray-300">
       <div className="flex items-center justify-start text-blue-gray-900">
         <Typography
           as={Link}
@@ -164,21 +161,21 @@ const NavBar = () => {
               {selectedTheme}
             </IconButton>
           </MenuHandler>
-          <MenuList className="bg-gray-300 dark:bg-[#212529] dark:text-gray-400 border-0">
+          <MenuList className="bg-[#9daaf7] text-black dark:bg-[#212529] dark:text-gray-400 border-0">
             <MenuItem
-              className="flex gap-2 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+              className="flex gap-2 hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
               onClick={() => toggleTheme("light")}
             >
               <FaSun /> Light
             </MenuItem>
             <MenuItem
-              className="flex gap-2 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+              className="flex gap-2 hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
               onClick={() => toggleTheme("dark")}
             >
               <FaMoon /> Dark
             </MenuItem>
             <MenuItem
-              className="flex gap-2 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+              className="flex gap-2 hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
               onClick={removeTheme}
             >
               <FaLaptop /> System

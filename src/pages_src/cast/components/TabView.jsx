@@ -30,7 +30,7 @@ const TabView = ({ tab, credits }) => {
         {newCredits?.map((actor, i) => (
           <Card
             key={i}
-            className="w-full max-w-[32rem] md:flex-row  bg-[#DEEEF5] dark:bg-[#252E2D]"
+            className="w-full max-w-[32rem] md:flex-row  bg-[#9daaf7] bg-opacity-50 dark:bg-[#252E2D]"
           >
             <CardHeader
               shadow={false}

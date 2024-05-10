@@ -16,16 +16,21 @@ import {
 import VideoTab from "./components/VideoTab";
 
 const Videos = () => {
+  //states
   const [tabs, setTabs] = useState([]);
   const [tabsDet, setTabsDet] = useState([]);
   const [activeTab, setActiveTab] = useState("Trailer");
+
+  //params and dispatch
   const { movId } = useParams();
   const dispatch = useDispatch();
 
+  //redux data
   const { videos, videosLoading, videosErr } = useSelector(
     (state) => state.movDetails
   );
 
+  //tabs view data
   const data = tabs.map((tab, i) => {
     return {
       label: `${tab} (${tabsDet[i]?.length ? tabsDet[i]?.length : "0"})`,
@@ -34,6 +39,7 @@ const Videos = () => {
     };
   });
 
+  //tabs functions
   const handleTabs = () => {
     let newTabs = [...tabs];
 
@@ -53,6 +59,7 @@ const Videos = () => {
     setTabsDet(newTabsDet);
   };
 
+  //useEffects
   useEffect(() => {
     dispatch(getVidoes(movId));
   }, []);

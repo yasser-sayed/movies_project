@@ -15,7 +15,10 @@ const CastDet = ({ credits, theme }) => {
 
       <div className=" flex overflow-x-auto justify-stretch  my-5 pb-2 gap-5">
         {credits?.cast.slice(0, 10).map((actor, i) => (
-          <Card key={i} className="min-w-48 bg-[#DEEEF5] dark:bg-[#252E2D]">
+          <Card
+            key={i}
+            className="min-w-48 bg-[#9daaf7] bg-opacity-50 dark:bg-[#252E2D]"
+          >
             <Link to="/">
               <img
                 src={

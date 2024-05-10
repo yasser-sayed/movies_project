@@ -16,7 +16,7 @@ const MoviesList = ({ content }) => {
       {content?.map((mov, key) => (
         <Card
           key={key}
-          className="mt-6 w-[19rem] bg-[#DEEEF5] shadow-lg dark:bg-[#212529] rounded-lg"
+          className="mt-6 w-[19rem] bg-[#9daaf7] bg-opacity-50 shadow-lg dark:bg-[#212529] rounded-lg"
         >
           <img
             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}

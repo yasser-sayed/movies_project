@@ -45,7 +45,7 @@ const ReviewsDet = ({ theme, reviews }) => {
           {reviews.length ? (
             <TabPanel
               value="Reviews"
-              className="flex justify-center text-center md:text-start md:justify-start items-center gap-6 bg-[#DEEEF5] dark:bg-[#252E2D] p-4 w-full rounded-b-xl rounded-tr-xl flex-wrap md:flex-nowrap "
+              className="flex justify-center text-center md:text-start md:justify-start items-center gap-6 bg-[#9daaf7] bg-opacity-50 dark:bg-[#252E2D] p-4 w-full rounded-b-xl rounded-tr-xl flex-wrap md:flex-nowrap "
             >
               <div className="bg-gray-400 rounded-full px-9 py-6  ">
                 <Typography variant="h3" color="white">

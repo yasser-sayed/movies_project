@@ -16,7 +16,7 @@ const SecHeader = () => {
     dispatch(getMovDet(movId));
   }, []);
   return (
-    <header className="flex gap-4 items-center justify-center md:justify-start flex-col md:flex-row text-center md:text-start max-w-screen-xl mx-auto bg-[#DEEEF5] dark:bg-[#212529] py-4 px-10 lg:rounded-lg">
+    <header className="flex gap-4 items-center justify-center md:justify-start flex-col md:flex-row text-center md:text-start max-w-screen-xl mx-auto bg-[#9daaf7] bg-opacity-50 dark:bg-[#212529] py-4 px-10 lg:rounded-lg">
       <img
         width="110px"
         src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movDet?.poster_path}`}

@@ -1,13 +1,12 @@
 import React from "react";
 
 const VideoTab = ({ video }) => {
-  console.log(video);
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center px-12 mt-10 gap-4">
       {video?.map((vid, i) => (
         <iframe
           key={i}
-          className="min-w-96 min-h-80"
+          className="w-full h-72 rounded-lg"
           src={`https://www.youtube.com/embed/${vid?.key}`}
           title="YouTube video player"
           frameBorder="0"

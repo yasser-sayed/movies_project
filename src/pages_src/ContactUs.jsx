@@ -57,7 +57,7 @@ const ContactUs = () => {
         Contact with the Website developer!
       </Typography>
 
-      <Card className="w-full md:w-96 rounded-none md:rounded-xl bg-[#DEEEF5] dark:bg-[#212529] py-4">
+      <Card className="w-full md:w-96 rounded-none md:rounded-xl bg-[#9daaf7] bg-opacity-50 dark:bg-[#212529] py-4">
         <CardBody className="flex flex-col gap-6 ">
           <Input
             color="blue"

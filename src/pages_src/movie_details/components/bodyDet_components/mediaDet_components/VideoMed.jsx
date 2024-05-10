@@ -10,7 +10,7 @@ const VideoMed = ({ theme, videos, videosLoading, videosErr }) => {
 
   return (
     <>
-      <div className=" flex overflow-x-auto justify-stretch   pb-2 gap-5 w-full bg-[#DEEEF5] dark:bg-[#252E2D] p-3 rounded-xl">
+      <div className=" flex overflow-x-auto justify-stretch   pb-2 gap-5 w-full bg-[#9daaf7] bg-opacity-50 dark:bg-[#252E2D] p-3 rounded-xl">
         {videosLoading ? (
           <Loading />
         ) : videosErr ? (
