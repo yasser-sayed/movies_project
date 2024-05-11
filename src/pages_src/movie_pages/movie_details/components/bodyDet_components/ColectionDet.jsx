@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCollec } from "../../../../redux_system/slices/movies_Slices/movDetailsSlice";
 import { Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import Loading from "./../../../components/Loading";
-import MessageError from "../../../components/MessageError";
+import { getCollec } from "./../../../../../redux_system/slices/movies_Slices/movDetailsSlice";
+import MessageError from "./../../../../components/MessageError";
+import Loading from "./../../../../components/Loading";
 
 const ColectionDet = ({ collecId, bg, theme }) => {
   const { collec, collecLoading, collecErr } = useSelector(

@@ -6,13 +6,13 @@ import {
   getImgs,
   getRecom,
   getReviews,
-} from "../../../redux_system/slices/movies_Slices/movDetailsSlice";
+} from "./../../../../redux_system/slices/movies_Slices/movDetailsSlice";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/Loading";
-import MessageError from "../../components/MessageError";
 import MediaDet from "./bodyDet_components/MediaDet";
 import RecommendationsDet from "./bodyDet_components/RecommendationsDet";
 import ColectionDet from "./bodyDet_components/ColectionDet";
+import Loading from "./../../../components/Loading";
+import MessageError from "./../../../components/MessageError";
 
 const BodyDet = ({ credits, movDet, movDetLoading }) => {
   const { theme } = useSelector((state) => state.config);

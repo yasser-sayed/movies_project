@@ -54,7 +54,7 @@ const CastDet = ({ credits, theme }) => {
         ))}
 
         {credits?.cast.length > 10 && (
-          <Card className="min-w-48 bg-[#DEEEF5] dark:bg-[#252E2D]">
+          <Card className="min-w-48 bg-[#9daaf7] bg-opacity-50 dark:bg-[#252E2D]">
             <CardBody className=" flex items-center justify-center h-full">
               <Typography
                 as={Link}

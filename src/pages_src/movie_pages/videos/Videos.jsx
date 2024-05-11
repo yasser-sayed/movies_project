@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getImgs } from "../../redux_system/slices/movies_Slices/movDetailsSlice";
-import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "../components/Loading";
-import MessageError from "../components/MessageError";
+import { useNavigate, useParams } from "react-router-dom";
+import { getVidoes } from "./../../../redux_system/slices/movies_Slices/movDetailsSlice";
+
+import MessageError from "./../../components/MessageError";
+import Loading from "./../../components/Loading";
+import SecHeader from "./../../components/SecHeader";
 import {
   Button,
   Tab,
@@ -12,22 +14,21 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
-import SecHeader from "../components/SecHeader";
-import BackDropTab from "./BackDropTab";
+import VideoTab from "./components/VideoTab";
 
-const BackDrops = () => {
+const Videos = () => {
   //states
   const [tabs, setTabs] = useState([]);
   const [tabsDet, setTabsDet] = useState([]);
-  const [activeTab, setActiveTab] = useState("No Language");
+  const [activeTab, setActiveTab] = useState("Trailer");
 
-  //navigate , useParams and dispatch
+  //navigate , params and dispatch
   const { movId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //redux data
-  const { backDrops, backDropsLoading, backDropsErr } = useSelector(
+  const { videos, videosLoading, videosErr } = useSelector(
     (state) => state.movDetails
   );
 
@@ -36,39 +37,25 @@ const BackDrops = () => {
     return {
       label: `${tab} (${tabsDet[i]?.length ? tabsDet[i]?.length : "0"})`,
       value: tab,
-      desc: <BackDropTab tab={tab} imgs={tabsDet[i]} />,
+      desc: <VideoTab tab={tab} video={tabsDet[i]} />,
     };
   });
 
   //tabs functions
-  const langName = new Intl.DisplayNames(["en"], { type: "language" });
-
   const handleTabs = () => {
     let newTabs = [...tabs];
 
-    backDrops?.map((img) => {
-      if (img.iso_639_1) {
-        const check = newTabs.some((tab) => tab == langName.of(img.iso_639_1));
+    videos?.map((video) => {
+      const check = newTabs.some((tab) => tab == video.type);
 
-        !check && (newTabs = [...newTabs, langName.of(img.iso_639_1)]);
-      } else {
-        const check = newTabs.some((tab) => tab == "No Language");
-        !check && (newTabs = [...newTabs, "No Language"]);
-      }
+      !check && (newTabs = [...newTabs, video.type]);
     });
     setTabs(newTabs);
   };
 
-  const handleBackDrops = () => {
-    const noLangImgs = backDrops.filter((img) => img.iso_639_1 == null);
-    const allLangImgs = backDrops.filter((img) => img.iso_639_1 != null);
-
+  const handleVideos = () => {
     const newTabsDet = tabs.map((tab) => {
-      if (tab == "No Language") {
-        return noLangImgs;
-      } else {
-        return allLangImgs.filter((img) => langName.of(img.iso_639_1) == tab);
-      }
+      return videos.filter((video) => video.type == tab);
     });
 
     setTabsDet(newTabsDet);
@@ -76,25 +63,25 @@ const BackDrops = () => {
 
   //useEffects
   useEffect(() => {
-    dispatch(getImgs(movId));
+    dispatch(getVidoes(movId));
   }, []);
 
   useEffect(() => {
     handleTabs();
-  }, [backDrops]);
+  }, [videos]);
 
   useEffect(() => {
-    handleBackDrops();
+    handleVideos();
   }, [tabs]);
 
   return (
     <div>
       <SecHeader />
 
-      {backDropsLoading ? (
+      {videosLoading ? (
         <Loading />
-      ) : backDropsErr ? (
-        <MessageError err={backDropsErr} />
+      ) : videosErr ? (
+        <MessageError err={videosErr} />
       ) : (
         <Tabs value={activeTab}>
           <TabsHeader
@@ -144,4 +131,4 @@ const BackDrops = () => {
   );
 };
 
-export default BackDrops;
+export default Videos;

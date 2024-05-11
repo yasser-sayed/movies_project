@@ -2,8 +2,8 @@ import { Card, CardBody, Typography } from "@material-tailwind/react";
 import React from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
-import Loading from "../../../../components/Loading";
-import MessageError from "../../../../components/MessageError";
+import Loading from "./../../../../../components/Loading";
+import MessageError from "./../../../../../components/MessageError";
 
 const BackDropsMed = ({ theme, backDrops, backDropsLoading, backDropsErr }) => {
   const { movId, movTitle } = useParams();

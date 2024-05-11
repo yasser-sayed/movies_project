@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getVidoes } from "../../redux_system/slices/movies_Slices/movDetailsSlice";
-import SecHeader from "../components/SecHeader";
-import Loading from "../components/Loading";
-import MessageError from "../components/MessageError";
+import { useNavigate, useParams } from "react-router-dom";
+
+import MessageError from "./../../components/MessageError";
+import Loading from "./../../components/Loading";
+import SecHeader from "./../../components/SecHeader";
 import {
   Button,
   Tab,
@@ -13,47 +13,63 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
-import VideoTab from "./components/VideoTab";
+import { getImgs } from "./../../../redux_system/slices/movies_Slices/movDetailsSlice";
+import PosterTab from "./components/PosterTab";
 
-const Videos = () => {
+const Posters = () => {
   //states
   const [tabs, setTabs] = useState([]);
   const [tabsDet, setTabsDet] = useState([]);
-  const [activeTab, setActiveTab] = useState("Trailer");
+  const [activeTab, setActiveTab] = useState("No Language");
 
-  //params and dispatch
+  //navigate , useParams and dispatch
   const { movId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //redux data
-  const { videos, videosLoading, videosErr } = useSelector(
+  const { posters, postersLoading, postersErr } = useSelector(
     (state) => state.movDetails
   );
 
-  //tabs view data
+  // tabs view data
   const data = tabs.map((tab, i) => {
     return {
       label: `${tab} (${tabsDet[i]?.length ? tabsDet[i]?.length : "0"})`,
       value: tab,
-      desc: <VideoTab tab={tab} video={tabsDet[i]} />,
+      desc: <PosterTab tab={tab} imgs={tabsDet[i]} />,
     };
   });
 
   //tabs functions
+  const langName = new Intl.DisplayNames(["en"], { type: "language" });
+
   const handleTabs = () => {
     let newTabs = [...tabs];
 
-    videos?.map((video) => {
-      const check = newTabs.some((tab) => tab == video.type);
+    posters?.map((img) => {
+      if (img.iso_639_1) {
+        const check = newTabs.some((tab) => tab == langName.of(img.iso_639_1));
 
-      !check && (newTabs = [...newTabs, video.type]);
+        !check && (newTabs = [...newTabs, langName.of(img.iso_639_1)]);
+      } else {
+        const check = newTabs.some((tab) => tab == "No Language");
+        !check && (newTabs = [...newTabs, "No Language"]);
+      }
     });
     setTabs(newTabs);
   };
 
-  const handleVideos = () => {
+  const handlePosters = () => {
+    const noLangImgs = posters.filter((img) => img.iso_639_1 == null);
+    const allLangImgs = posters.filter((img) => img.iso_639_1 != null);
+
     const newTabsDet = tabs.map((tab) => {
-      return videos.filter((video) => video.type == tab);
+      if (tab == "No Language") {
+        return noLangImgs;
+      } else {
+        return allLangImgs.filter((img) => langName.of(img.iso_639_1) == tab);
+      }
     });
 
     setTabsDet(newTabsDet);
@@ -61,29 +77,29 @@ const Videos = () => {
 
   //useEffects
   useEffect(() => {
-    dispatch(getVidoes(movId));
+    dispatch(getImgs(movId));
   }, []);
 
   useEffect(() => {
     handleTabs();
-  }, [videos]);
+  }, [posters]);
 
   useEffect(() => {
-    handleVideos();
+    handlePosters();
   }, [tabs]);
 
   return (
     <div>
       <SecHeader />
 
-      {videosLoading ? (
+      {postersLoading ? (
         <Loading />
-      ) : videosErr ? (
-        <MessageError err={videosErr} />
+      ) : postersErr ? (
+        <MessageError err={postersErr} />
       ) : (
         <Tabs value={activeTab}>
           <TabsHeader
-            className="rounded-none  bg-transparent p-0 overflow-auto flex items-center lg:justify-center mt-5 mx-10"
+            className="rounded-none  bg-transparent p-0 overflow-auto flex items-center  mt-5 mx-10"
             indicatorProps={{
               className:
                 "bg-transparent border-b-2 border-purple-500 shadow-none rounded-none ",
@@ -94,7 +110,7 @@ const Videos = () => {
                 key={value}
                 value={value}
                 onClick={() => setActiveTab(value)}
-                className={`                w-auto px-4 py-1 ${
+                className={`                w-auto px-4 py-1  ${
                   activeTab === value
                     ? "text-purple-500 border-purple-500"
                     : "dark:text-white"
@@ -128,5 +144,4 @@ const Videos = () => {
     </div>
   );
 };
-
-export default Videos;
+export default Posters;

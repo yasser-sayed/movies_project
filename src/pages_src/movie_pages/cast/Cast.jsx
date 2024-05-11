@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCredits } from "../../redux_system/slices/movies_Slices/movDetailsSlice";
-import SecHeader from "../components/SecHeader";
+import { getCredits } from "./../../../redux_system/slices/movies_Slices/movDetailsSlice";
+
 import {
   Button,
   Tab,
@@ -12,8 +12,9 @@ import {
   TabsHeader,
 } from "@material-tailwind/react";
 import TabView from "./components/TabView";
-import Loading from "../components/Loading";
-import MessageError from "../components/MessageError";
+import MessageError from "./../../components/MessageError";
+import Loading from "./../../components/Loading";
+import SecHeader from "./../../components/SecHeader";
 
 const Cast = () => {
   //tabs State

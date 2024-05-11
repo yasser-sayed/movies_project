@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import SecHeader from "../components/SecHeader";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviews } from "../../redux_system/slices/movies_Slices/movDetailsSlice";
-import Loading from "../components/Loading";
-import MessageError from "../components/MessageError";
+import { getReviews } from "./../../../redux_system/slices/movies_Slices/movDetailsSlice";
+import MessageError from "./../../components/MessageError";
+import Loading from "./../../components/Loading";
+import SecHeader from "./../../components/SecHeader";
 import { Button, Typography } from "@material-tailwind/react";
 import ShowMoreText from "react-show-more-text";
 

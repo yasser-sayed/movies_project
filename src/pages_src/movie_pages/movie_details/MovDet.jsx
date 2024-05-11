@@ -7,12 +7,12 @@ import {
   getMovDet,
   getSocial,
   getVidoes,
-} from "../../redux_system/slices/movies_Slices/movDetailsSlice";
+} from "./../../../redux_system/slices/movies_Slices/movDetailsSlice";
 import MovHeader from "./components/MovHeader";
-import Loading from "../components/Loading";
 import SideBar from "./components/SideBar";
 import BodyDet from "./components/BodyDet";
-import MessageError from "../components/MessageError";
+import Loading from "./../../components/Loading";
+import MessageError from "./../../components/MessageError";
 
 const MovDet = () => {
   const { movId } = useParams();

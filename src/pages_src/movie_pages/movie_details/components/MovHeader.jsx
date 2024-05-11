@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Dialog, Typography } from "@material-tailwind/react";
 import { FaHandPointLeft, FaHandPointRight } from "react-icons/fa";
-import Loading from "../../components/Loading";
 import { AiFillFileAdd } from "react-icons/ai";
 import { FaRegStar } from "react-icons/fa";
 import { FaCirclePlay } from "react-icons/fa6";

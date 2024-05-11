@@ -7,13 +7,13 @@ import Series from "./pages_src/series/Series";
 import ContactUs from "./pages_src/ContactUs";
 import PageError from "./pages_src/PageError";
 import Footer from "./pages_src/components/Footer";
-import MovDet from "./pages_src/movie_details/MovDet";
-import Cast from "./pages_src/cast/Cast";
-import Reviews from "./pages_src/reviews/Reviews";
-import Videos from "./pages_src/videos/Videos";
-import BackDrops from "./pages_src/backDrops/BackDrops";
-import Posters from "./pages_src/posters/Posters";
-import Collections from "./pages_src/collections/Collections";
+import MovDet from "./pages_src/movie_pages/movie_details/MovDet";
+import Cast from "./pages_src/movie_pages/cast/Cast";
+import Reviews from "./pages_src/movie_pages/reviews/Reviews";
+import Videos from "./pages_src/movie_pages/videos/Videos";
+import BackDrops from "./pages_src/movie_pages/backDrops/BackDrops";
+import Posters from "./pages_src/movie_pages/posters/Posters";
+import Collections from "./pages_src/movie_pages/collections/Collections";
 
 const App = () => {
   return (
