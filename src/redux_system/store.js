@@ -5,6 +5,7 @@ import { homeSeries } from "./slices/series_Slices/homeSeriesSlice";
 import { popularMovies } from "./slices/movies_Slices/moviesSlice";
 import { popularSeries } from "./slices/series_Slices/seriesSlice";
 import { movDetails } from "./slices/movies_Slices/movDetailsSlice";
+import { tvDetails } from "./slices/series_Slices/tvDetailsSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     popularMovies,
     popularSeries,
     movDetails,
+    tvDetails,
   },
 });
 

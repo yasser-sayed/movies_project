@@ -50,12 +50,14 @@ const Home = () => {
         title={"Movies"}
         popLoading={sliderMLoading}
         popErr={sliderMErr}
+        movie={true}
       />
       <SliderH
         content={sliderSeries}
         title={"Series"}
         popLoading={sliderSLoading}
         popErr={sliderSErr}
+        movie={false}
       />
 
       <TopRatedH
@@ -63,14 +65,14 @@ const Home = () => {
         title={"Movies"}
         topLoading={topMLoading}
         topErr={topMErr}
-        showName={true}
+        movie={true}
       />
       <TopRatedH
         content={topSeries}
         title={"Series"}
         topLoading={topSLoading}
         topErr={topSErr}
-        showName={false}
+        movie={false}
       />
     </div>
   );

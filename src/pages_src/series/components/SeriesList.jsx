@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { IoStar, IoStarOutline } from "react-icons/io5";
 import Rating from "react-rating";
+import { Link } from "react-router-dom";
 
 const SeriesList = ({ content }) => {
   return (
@@ -48,9 +49,11 @@ const SeriesList = ({ content }) => {
             </div>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="outlined" color="blue" className="">
-              Show Details
-            </Button>
+            <Link to={`/tv/${mov.id}/name/${mov.name}`}>
+              <Button variant="outlined" color="blue" className="">
+                Show Details
+              </Button>
+            </Link>
           </CardFooter>
         </Card>
       ))}

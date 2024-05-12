@@ -5,7 +5,7 @@ import MessageError from "../../components/MessageError";
 import Loading from "../../components/Loading";
 import { Link } from "react-router-dom";
 
-const SliderH = ({ content, title, popLoading, popErr }) => {
+const SliderH = ({ content, title, movie, popLoading, popErr }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -58,7 +58,13 @@ const SliderH = ({ content, title, popLoading, popErr }) => {
         <Slider {...settings}>
           {content?.map((mov, key) => (
             <div key={key}>
-              <Link to={`/movie/${mov.id}/title/${mov.title}`}>
+              <Link
+                to={
+                  movie
+                    ? `/movie/${mov.id}/title/${mov.title}`
+                    : `/tv/${mov.id}/name/${mov.name}`
+                }
+              >
                 <img
                   src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}
                   alt="movie image"

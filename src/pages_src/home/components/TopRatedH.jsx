@@ -12,7 +12,7 @@ import MessageError from "./../../components/MessageError";
 import Loading from "../../components/Loading";
 import { Link } from "react-router-dom";
 
-const TopRatedH = ({ content, title, showName, topLoading, topErr }) => {
+const TopRatedH = ({ content, title, movie, topLoading, topErr }) => {
   return (
     <div className="my-12">
       <Typography variant="h2" color="red">
@@ -37,7 +37,7 @@ const TopRatedH = ({ content, title, showName, topLoading, topErr }) => {
               />
               <CardBody>
                 <Typography variant="h5" className="mb-2 dark:text-gray-200">
-                  {showName ? mov.title : mov.name}
+                  {movie ? mov.title : mov.name}
                 </Typography>
 
                 <div className="flex justify-between items-center">
@@ -64,7 +64,9 @@ const TopRatedH = ({ content, title, showName, topLoading, topErr }) => {
               <CardFooter className="pt-0">
                 <Link
                   to={
-                    showName ? `/movie/${mov.id}/title/${mov.title}` : "/series"
+                    movie
+                      ? `/movie/${mov.id}/title/${mov.title}`
+                      : `/tv/${mov.id}/name/${mov.name}`
                   }
                 >
                   <Button variant="outlined" color="blue" className="">
