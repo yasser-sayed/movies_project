@@ -68,6 +68,14 @@ const TvSideBar = ({ tvDet }) => {
       </div>
 
       <div>
+        <Typography variant="h5">Original Name</Typography>
+
+        <Typography variant="paragraph" color="blue">
+          {tvDet?.original_name ? tvDet.original_name : "-"}
+        </Typography>
+      </div>
+
+      <div>
         <Typography variant="h5">Status</Typography>
 
         <Typography variant="paragraph" color="blue">
@@ -88,16 +96,43 @@ const TvSideBar = ({ tvDet }) => {
       </div>
 
       <div>
-        <Typography variant="h5">Budget</Typography>
+        <Typography variant="h5">NetWork</Typography>
+        <div className="flex flex-wrap gap-5 items-center">
+          {tvDet?.networks
+            ? tvDet.networks.map((network) => (
+                <img
+                  key={network.id}
+                  src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${network.logo_path}`}
+                  alt="network logo"
+                  className="w-1/12 mt-3"
+                />
+              ))
+            : "-"}
+        </div>
+      </div>
+
+      <div>
+        <Typography variant="h5">Type</Typography>
         <Typography variant="paragraph" color="blue">
-          {tvDet?.budget ? `$ ${tvDet.budget.toLocaleString()}` : "-"}
+          {tvDet?.type ? tvDet.type : "-"}
         </Typography>
       </div>
 
       <div>
-        <Typography variant="h5">Revenue</Typography>
+        <Typography variant="h5">Number Of Episodes</Typography>
         <Typography variant="paragraph" color="blue">
-          {tvDet?.revenue ? `$ ${tvDet.revenue.toLocaleString()}` : "-"}
+          {tvDet?.number_of_episodes
+            ? `${tvDet.number_of_episodes} Episodes`
+            : "-"}
+        </Typography>
+      </div>
+
+      <div>
+        <Typography variant="h5">Number Of Seasons</Typography>
+        <Typography variant="paragraph" color="blue">
+          {tvDet?.number_of_seasons
+            ? `${tvDet.number_of_seasons} Seasons`
+            : "-"}
         </Typography>
       </div>
 

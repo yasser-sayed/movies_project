@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const SliderH = ({ content, title, movie, popLoading, popErr }) => {
   const settings = {
-    dots: true,
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -22,14 +21,12 @@ const SliderH = ({ content, title, movie, popLoading, popErr }) => {
           slidesToShow: 3,
 
           infinite: true,
-          dots: true,
         },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          dots: false,
 
           initialSlide: 2,
         },
@@ -37,7 +34,6 @@ const SliderH = ({ content, title, movie, popLoading, popErr }) => {
       {
         breakpoint: 480,
         settings: {
-          dots: false,
           slidesToShow: 1,
         },
       },

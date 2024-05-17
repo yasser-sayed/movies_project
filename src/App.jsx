@@ -21,6 +21,8 @@ import TvSeasons from "./pages_src/series_pages/seasons/TvSeasons";
 import TvVideos from "./pages_src/series_pages/videos/TvVideos";
 import TvBackDrops from "./pages_src/series_pages/backDrops/TvBackDrops";
 import TvPosters from "./pages_src/series_pages/posters/TvPosters";
+import SeasonEpisodes from "./pages_src/series_pages/seasons/season_episodes/SeasonEpisodes";
+import EpisodeCast from "./pages_src/series_pages/seasons/season_episodes/episode_cast/EpisodeCast";
 
 const App = () => {
   return (
@@ -59,7 +61,6 @@ const App = () => {
         <Route path="/tv/:tvId/name/:tvName" element={<TvDet />} />
 
         <Route path="/tv/:tvId/name/:tvName/cast" element={<TvCast />} />
-        <Route path="/tv/:tvId/name/:tvName/seasons" element={<TvSeasons />} />
         <Route path="/tv/:tvId/name/:tvName/reviews" element={<TvReviews />} />
         <Route path="/tv/:tvId/name/:tvName/videos" element={<TvVideos />} />
         <Route
@@ -67,6 +68,17 @@ const App = () => {
           element={<TvBackDrops />}
         />
         <Route path="/tv/:tvId/name/:tvName/posters" element={<TvPosters />} />
+
+        {/* seasons routes */}
+        <Route path="/tv/:tvId/name/:tvName/seasons" element={<TvSeasons />} />
+        <Route
+          path="/tv/:tvId/name/:seasonName/season/:seasonNum"
+          element={<SeasonEpisodes />}
+        />
+        <Route
+          path="/tv/:tvId/season/:seasonNum/episode/:episNum"
+          element={<EpisodeCast />}
+        />
 
         {/* collection route */}
         <Route

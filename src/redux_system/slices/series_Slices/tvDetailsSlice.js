@@ -26,6 +26,32 @@ const data = {
   keyWords: [],
   keyWordsLoading: false,
   keyWordsErr: null,
+
+  //tv reviews
+  reviews: [],
+  reviewsLoading: false,
+  reviewsErr: null,
+
+  //tv recom
+  recom: [],
+  recomLoading: false,
+  recomErr: null,
+
+  //tv imgs
+  backDrops: [],
+  posters: [],
+  imgsLoading: false,
+  imgsErr: null,
+
+  //tv season
+  season: null,
+  seasonLoading: false,
+  seasonErr: null,
+
+  //tv episode
+  episode: null,
+  episodeLoading: false,
+  episodeErr: null,
 };
 
 //series details function
@@ -124,7 +150,7 @@ export const getTvSocial = createAsyncThunk(
   }
 );
 
-//social function
+//keywords function
 export const getTvKeyWords = createAsyncThunk(
   "getTvKeyWords",
   async (id, thunkApi) => {
@@ -134,6 +160,120 @@ export const getTvKeyWords = createAsyncThunk(
       const tvDetData = await axios({
         method: "GET",
         url: `https://api.themoviedb.org/3/tv/${id}/keywords`,
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+        },
+      });
+
+      return tvDetData.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+//reviews function
+export const getTvReviews = createAsyncThunk(
+  "getTvReviews",
+  async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+
+    try {
+      const tvDetData = await axios({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/tv/${id}/reviews`,
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+        },
+      });
+
+      return tvDetData.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+//images function
+export const getTvImgs = createAsyncThunk("getTvImgs", async (id, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
+  try {
+    const tvDetData = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/tv/${id}/images`,
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+      },
+    });
+
+    return tvDetData.data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});
+
+//recommendations function
+export const getTvRecom = createAsyncThunk(
+  "getTvRecom",
+  async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+
+    try {
+      const tvDetData = await axios({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/tv/${id}/recommendations`,
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+        },
+      });
+
+      return tvDetData.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+//season function
+export const getSeason = createAsyncThunk("getSeason", async (id, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
+  try {
+    const tvDetData = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/tv/${id.tvId}/season/${id.seasonNum}`,
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDYxMzI0M2EyMjczOWU2MDQxOTI4ZTMxYmJiOWQzOSIsInN1YiI6IjY2MmE3YzBkNGNiZTEyMDBhNmZhMjM4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KfdPC5TDpEcMRnF4IfyqTA14b0tsmQzg3OCrE5NUp4",
+      },
+    });
+
+    return tvDetData.data;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+});
+
+//episode function
+export const getEpisode = createAsyncThunk(
+  "getEpisode",
+  async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+
+    try {
+      const tvDetData = await axios({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/tv/${id.tvId}/season/${id.seasonNum}/credits`,
         headers: {
           accept: "application/json",
           Authorization:
@@ -183,6 +323,21 @@ const tvDetailsSlice = createSlice({
       state.creditsErr = payload.message;
     });
 
+    //tv videos handler
+    builder.addCase(getTvVideos.pending, (state) => {
+      state.videosLoading = true;
+    });
+
+    builder.addCase(getTvVideos.fulfilled, (state, { payload }) => {
+      state.videosLoading = false;
+      state.videos = payload.results;
+    });
+
+    builder.addCase(getTvVideos.rejected, (state, { payload }) => {
+      state.videosLoading = false;
+      state.videosErr = payload.message;
+    });
+
     //tv social handler
     builder.addCase(getTvSocial.pending, (state) => {
       state.socialLoading = true;
@@ -211,6 +366,80 @@ const tvDetailsSlice = createSlice({
     builder.addCase(getTvKeyWords.rejected, (state, { payload }) => {
       state.keyWordsLoading = false;
       state.keyWordsErr = payload.message;
+    });
+
+    //tv reviews handler
+    builder.addCase(getTvReviews.pending, (state) => {
+      state.reviewsLoading = true;
+    });
+
+    builder.addCase(getTvReviews.fulfilled, (state, { payload }) => {
+      state.reviewsLoading = false;
+      state.reviews = payload.results;
+    });
+
+    builder.addCase(getTvReviews.rejected, (state, { payload }) => {
+      state.reviewsLoading = false;
+      state.reviewsErr = payload.message;
+    });
+
+    //tv imgs handler
+    builder.addCase(getTvImgs.pending, (state) => {
+      state.imgsLoading = true;
+    });
+    builder.addCase(getTvImgs.fulfilled, (state, { payload }) => {
+      state.imgsLoading = false;
+      state.backDrops = payload.backdrops;
+      state.posters = payload.posters;
+    });
+    builder.addCase(getTvImgs.rejected, (state, { payload }) => {
+      state.imgsLoading = false;
+      state.imgsErr = payload.message;
+    });
+
+    //tv recommendations handler
+    builder.addCase(getTvRecom.pending, (state) => {
+      state.recomLoading = true;
+    });
+
+    builder.addCase(getTvRecom.fulfilled, (state, { payload }) => {
+      state.recomLoading = false;
+      state.recom = payload.results;
+    });
+
+    builder.addCase(getTvRecom.rejected, (state, { payload }) => {
+      state.recomLoading = false;
+      state.recomErr = payload.message;
+    });
+
+    //tv season handler
+    builder.addCase(getSeason.pending, (state) => {
+      state.seasonLoading = true;
+    });
+
+    builder.addCase(getSeason.fulfilled, (state, { payload }) => {
+      state.seasonLoading = false;
+      state.season = payload;
+    });
+
+    builder.addCase(getSeason.rejected, (state, { payload }) => {
+      state.seasonLoading = false;
+      state.seasonErr = payload.message;
+    });
+
+    //tv episode handler
+    builder.addCase(getEpisode.pending, (state) => {
+      state.episodeLoading = true;
+    });
+
+    builder.addCase(getEpisode.fulfilled, (state, { payload }) => {
+      state.episodeLoading = false;
+      state.episode = payload;
+    });
+
+    builder.addCase(getEpisode.rejected, (state, { payload }) => {
+      state.episodeLoading = false;
+      state.episodeErr = payload.message;
     });
   },
 });

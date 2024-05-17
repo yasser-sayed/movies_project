@@ -36,7 +36,7 @@ const TvHeader = ({ tvDet, credits, videos }) => {
         </section>
 
         <section className=" lg:w-3/5 leading-loose	flex flex-col gap-6 text-center lg:text-start">
-          <Typography variant="h3">{tvDet?.original_name} </Typography>
+          <Typography variant="h3">{tvDet?.name} </Typography>
 
           <span className="flex items-center flex-wrap justify-center gap-1 lg:self-start">
             {tvDet?.first_air_date}{" "}
@@ -181,7 +181,7 @@ const TvHeader = ({ tvDet, credits, videos }) => {
       >
         <iframe
           className="max-w-[560px] max-h-[315px] w-screen h-screen"
-          src={`https://www.youtube.com/embed/${videos?.key}`}
+          src={`https://www.youtube.com/embed/${videos[0]?.key}`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

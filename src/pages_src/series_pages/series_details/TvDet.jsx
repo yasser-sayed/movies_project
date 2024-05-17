@@ -10,9 +10,9 @@ import {
 import Loading from "../../components/Loading";
 import MessageError from "../../components/MessageError";
 import TvHeader from "./components/TvHeader";
-import { getVidoes } from "../../../redux_system/slices/movies_Slices/movDetailsSlice";
 import TvBodyDet from "./components/TvBodyDet";
 import TvSideBar from "./components/TvSideBar";
+import { getTvVideos } from "./../../../redux_system/slices/series_Slices/tvDetailsSlice";
 
 const TvDet = () => {
   const { tvId } = useParams();
@@ -25,10 +25,10 @@ const TvDet = () => {
   useEffect(() => {
     dispatch(getTvDet(tvId));
     dispatch(getTvCredits(tvId));
-    dispatch(getVidoes(tvId));
+    dispatch(getTvVideos(tvId));
     dispatch(getTvSocial(tvId));
     dispatch(getTvKeyWords(tvId));
-  }, []);
+  }, [tvId]);
 
   return (
     <div>
@@ -41,11 +41,7 @@ const TvDet = () => {
       )}
 
       <section className="grid grid-cols-12 my-8 mx-4">
-        <TvBodyDet
-          credits={credits}
-          tvDet={tvDet}
-          tvDetLoading={tvDetLoading}
-        />
+        <TvBodyDet />
 
         {tvDetLoading ? (
           <Loading />

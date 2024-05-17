@@ -1,0 +1,37 @@
+import { Typography } from "@material-tailwind/react";
+import React from "react";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+
+const SeasonsHeader = ({ season }) => {
+  return (
+    <header className="flex gap-4 items-center justify-center md:justify-start flex-col md:flex-row text-center md:text-start max-w-screen-xl mx-auto bg-[#9daaf7] bg-opacity-50 dark:bg-[#212529] py-4 px-10 lg:rounded-lg">
+      <img
+        width="110px"
+        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${season?.poster_path}`}
+        alt="poster"
+      />
+
+      <div>
+        <Typography variant="h4">
+          {season?.name}{" "}
+          <span className="text-gray-600">
+            ({season?.air_date?.slice(0, 4)})
+          </span>
+        </Typography>
+
+        <Typography
+          as={Link}
+          to={-1}
+          variant="paragraph"
+          className="text-gray-600 hover:text-gray-900  dark:hover:text-gray-400 inline-block"
+        >
+          <FaArrowLeftLong className="inline-block text-xs" /> Back to season
+          list
+        </Typography>
+      </div>
+    </header>
+  );
+};
+
+export default SeasonsHeader;
