@@ -19,7 +19,7 @@ const CastDet = ({ credits, theme }) => {
             key={i}
             className="min-w-48 bg-[#9daaf7] bg-opacity-50 dark:bg-[#252E2D]"
           >
-            <Link to="/">
+            <Link to={`/person/${actor.id}/hisname/${actor.name}`}>
               <img
                 src={
                   actor.profile_path
@@ -34,7 +34,7 @@ const CastDet = ({ credits, theme }) => {
             <CardBody className="text-center">
               <Typography
                 as={Link}
-                to="/"
+                to={`/person/${actor.id}/hisname/${actor.name}`}
                 variant="h5"
                 color={theme ? "blue-gray" : "white"}
                 className="mb-2"

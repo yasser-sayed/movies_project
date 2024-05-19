@@ -37,7 +37,7 @@ const TabView = ({ tab, credits }) => {
               floated={false}
               className="md:m-0 md:w-2/5 shrink-0 md:rounded-r-none"
             >
-              <Link to="/">
+              <Link to={`/person/${actor.id}/hisname/${actor.name}`}>
                 <img
                   src={
                     actor.profile_path
@@ -53,7 +53,7 @@ const TabView = ({ tab, credits }) => {
             <CardBody className="text-center flex flex-col items-center justify-center">
               <Typography
                 as={Link}
-                to="/"
+                to={`/person/${actor.id}/hisname/${actor.name}`}
                 variant="h5"
                 color={theme ? "blue-gray" : "white"}
                 className="mb-2"

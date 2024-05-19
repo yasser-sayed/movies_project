@@ -23,6 +23,7 @@ import TvBackDrops from "./pages_src/series_pages/backDrops/TvBackDrops";
 import TvPosters from "./pages_src/series_pages/posters/TvPosters";
 import SeasonEpisodes from "./pages_src/series_pages/seasons/season_episodes/SeasonEpisodes";
 import EpisodeCast from "./pages_src/series_pages/seasons/season_episodes/episode_cast/EpisodeCast";
+import Person from "./pages_src/person/Person";
 
 const App = () => {
   return (
@@ -84,6 +85,12 @@ const App = () => {
         <Route
           path="/collection/:collecId/title/:collecTitle"
           element={<Collections />}
+        />
+
+        {/* person route */}
+        <Route
+          path="/person/:personId/hisname/:personName"
+          element={<Person />}
         />
 
         {/* error page */}
