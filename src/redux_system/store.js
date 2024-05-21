@@ -7,6 +7,7 @@ import { popularSeries } from "./slices/series_Slices/seriesSlice";
 import { movDetails } from "./slices/movies_Slices/movDetailsSlice";
 import { tvDetails } from "./slices/series_Slices/tvDetailsSlice";
 import { person } from "./slices/persons_Slices/personSlice";
+import { search } from "./slices/search_Slices/srchSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     movDetails,
     tvDetails,
     person,
+    search,
   },
 });
 

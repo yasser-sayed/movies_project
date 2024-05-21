@@ -13,7 +13,11 @@ const RightPersonSide = ({ personDet, personWorks }) => {
         <Typography variant="h4" color="blue" className="inline-block">
           Biography :
         </Typography>
-        <p>{personDet?.biography}</p>
+        <p>
+          {personDet?.biography
+            ? personDet?.biography
+            : "no Biography for this person"}
+        </p>
       </div>
 
       <div className="flex items-center justify-center">

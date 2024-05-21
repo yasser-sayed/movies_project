@@ -9,6 +9,11 @@ import {
   MenuList,
   Navbar,
   Typography,
+  Input,
+  Card,
+  ListItem,
+  ListItemPrefix,
+  Avatar,
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -16,7 +21,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { FaSun, FaMoon, FaLaptop } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../../redux_system/slices/configSlice";
-import { config } from "./../../redux_system/slices/configSlice";
+import {
+  getMovieSrch,
+  getTvSrch,
+} from "../../redux_system/slices/search_Slices/srchSlice";
 
 function NavList() {
   const { pathname: activePage } = useLocation();
@@ -75,11 +83,17 @@ function NavList() {
 }
 
 const NavBar = () => {
+  const [search, setSearch] = useState("");
+  const [srchType, setSrchType] = useState(true);
+  const [openSrch, setOpenSrch] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(<FaSun />);
+
   const { theme } = useSelector((state) => state.config);
+  const { srchResult } = useSelector((state) => state.search);
   const dispatch = useDispatch();
 
+  //theme config
   const checkTheme = () => {
     if (
       localStorage.theme === "dark" ||
@@ -133,6 +147,93 @@ const NavBar = () => {
         <div className="hidden lg:block">
           <NavList />
         </div>
+
+        {/* search */}
+        <div className="hidden items-center gap-x-2 lg:flex ms-auto">
+          <div className=" flex relative w-full gap-2 md:w-max">
+            <Input
+              type="search"
+              color={theme ? "black" : "white"}
+              label={`search in ${srchType ? "movies" : "series"}`}
+              containerProps={{ className: "min-w-[288px]" }}
+              onChange={(inp) => setSearch(inp.target.value)}
+              value={search}
+              className=" bg-white dark:bg-[#212529] "
+              onFocus={() => setOpenSrch(true)}
+              onBlur={() => setOpenSrch(false)}
+              onKeyUp={
+                srchType
+                  ? dispatch(getMovieSrch(search))
+                  : dispatch(getTvSrch(search))
+              }
+            />
+
+            <Card
+              className={`w-96 absolute top-11 ${
+                !search.length || !openSrch ? "hidden" : ""
+              }`}
+            >
+              <List className="bg-[#9daaf7] text-black dark:bg-[#212529] dark:text-gray-400 border-0 max-h-[300px] overflow-scroll">
+                {srchResult.map((res, i) => (
+                  <ListItem
+                    key={i}
+                    className="hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
+                  >
+                    <ListItemPrefix>
+                      <Avatar
+                        variant="circular"
+                        alt="candice"
+                        src={
+                          res?.poster_path
+                            ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${res?.poster_path}`
+                            : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                        }
+                      />
+                    </ListItemPrefix>
+                    <div>
+                      <Typography variant="h6">
+                        {srchType ? res?.title : res?.name}
+                      </Typography>
+                      {/* <Typography variant="small" className="font-normal">
+                        Software Engineer @ Material Tailwind
+                      </Typography> */}
+                    </div>
+                  </ListItem>
+                ))}
+              </List>
+            </Card>
+          </div>
+          <Button
+            variant="outlined"
+            color={theme ? "black" : "white"}
+            size="sm"
+            className="rounded-lg "
+            disabled={!search.length}
+          >
+            Search
+          </Button>
+          <Button
+            variant="outlined"
+            color="teal"
+            size="sm"
+            className="rounded-lg "
+            hidden={!srchType}
+            onClick={() => setSrchType(false)}
+          >
+            movies Search
+          </Button>
+          <Button
+            variant="outlined"
+            color="red"
+            size="sm"
+            className="rounded-lg "
+            hidden={srchType}
+            onClick={() => setSrchType(true)}
+          >
+            series Search
+          </Button>
+        </div>
+
         <div className="hidden gap-2 lg:flex self-center ms-auto me-2">
           <Button color="blue" variant="outlined" size="sm">
             Login
@@ -151,6 +252,7 @@ const NavBar = () => {
           )}
         </IconButton>
 
+        {/* theme menu */}
         <Menu allowHover={true}>
           <MenuHandler>
             <IconButton
@@ -185,6 +287,90 @@ const NavBar = () => {
       </div>
       <Collapse open={openNav}>
         <NavList />
+        {/* search */}
+        <div className="lg:hidden items-center gap-2 flex ms-auto w-full flex-wrap justify-around my-2 ">
+          <div className=" flex relative w-full gap-2 md:w-max">
+            <Input
+              type="search"
+              color={theme ? "black" : "white"}
+              label={`search in ${srchType ? "movies" : "series"}`}
+              containerProps={{ className: "min-w-[288px]" }}
+              onChange={(inp) => setSearch(inp.target.value)}
+              value={search}
+              className=" bg-white dark:bg-[#212529] "
+              onFocus={() => setOpenSrch(true)}
+              onBlur={() => setOpenSrch(false)}
+            />
+          </div>
+          <Button
+            variant="outlined"
+            color={theme ? "black" : "white"}
+            size="sm"
+            className="rounded-lg "
+            disabled={!search.length}
+          >
+            Search
+          </Button>
+          <Button
+            variant="outlined"
+            color="teal"
+            size="sm"
+            className="rounded-lg "
+            hidden={!srchType}
+            onClick={() => setSrchType(false)}
+          >
+            movies Search
+          </Button>
+          <Button
+            variant="outlined"
+            color="red"
+            size="sm"
+            className="rounded-lg "
+            hidden={srchType}
+            onClick={() => setSrchType(true)}
+          >
+            series Search
+          </Button>
+
+          <Card
+            className={`w-80 absolute top-[21rem] z-50 ${
+              !search.length || !openSrch ? "hidden" : ""
+            }`}
+          >
+            <List className="bg-[#9daaf7] text-black dark:bg-[#212529] dark:text-gray-400 border-0 max-h-[300px] overflow-scroll">
+              <ListItem className="hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50">
+                <ListItemPrefix>
+                  <Avatar
+                    variant="circular"
+                    alt="candice"
+                    src="https://docs.material-tailwind.com/img/face-1.jpg"
+                  />
+                </ListItemPrefix>
+                <div>
+                  <Typography variant="h6">Tania Andrew</Typography>
+                  <Typography variant="small" className="font-normal">
+                    Software Engineer @ Material Tailwind
+                  </Typography>
+                </div>
+              </ListItem>
+              <ListItem className="hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50">
+                <ListItemPrefix>
+                  <Avatar
+                    variant="circular"
+                    alt="candice"
+                    src="https://docs.material-tailwind.com/img/face-1.jpg"
+                  />
+                </ListItemPrefix>
+                <div>
+                  <Typography variant="h6">Tania Andrew</Typography>
+                  <Typography variant="small" className="font-normal">
+                    Software Engineer @ Material Tailwind
+                  </Typography>
+                </div>
+              </ListItem>
+            </List>
+          </Card>
+        </div>
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Button color="blue" variant="outlined" size="sm" fullWidth>
             Login
