@@ -19,7 +19,11 @@ const MoviesList = ({ content }) => {
           className="mt-6 w-[19rem] bg-[#9daaf7] bg-opacity-50 shadow-lg dark:bg-[#212529] rounded-lg"
         >
           <img
-            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`}
+            src={
+              mov.poster_path
+                ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${mov.poster_path}`
+                : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+            }
             alt="card-image"
             className="rounded-t-lg "
           />

@@ -24,6 +24,7 @@ import TvPosters from "./pages_src/series_pages/posters/TvPosters";
 import SeasonEpisodes from "./pages_src/series_pages/seasons/season_episodes/SeasonEpisodes";
 import EpisodeCast from "./pages_src/series_pages/seasons/season_episodes/episode_cast/EpisodeCast";
 import Person from "./pages_src/person/Person";
+import SearchMenu from "./pages_src/search/SearchMenu";
 
 const App = () => {
   return (
@@ -92,6 +93,9 @@ const App = () => {
           path="/person/:personId/hisname/:personName"
           element={<Person />}
         />
+
+        {/* search route */}
+        <Route path="/search/:srchWord/in/:srchType" element={<SearchMenu />} />
 
         {/* error page */}
         <Route path="*" element={<PageError />} />

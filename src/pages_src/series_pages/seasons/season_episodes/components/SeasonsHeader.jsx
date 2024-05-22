@@ -8,7 +8,11 @@ const SeasonsHeader = ({ season }) => {
     <header className="flex gap-4 items-center justify-center md:justify-start flex-col md:flex-row text-center md:text-start max-w-screen-xl mx-auto bg-[#9daaf7] bg-opacity-50 dark:bg-[#212529] py-4 px-10 lg:rounded-lg">
       <img
         width="110px"
-        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${season?.poster_path}`}
+        src={
+          season?.poster_path
+            ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${season?.poster_path}`
+            : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+        }
         alt="poster"
       />
 

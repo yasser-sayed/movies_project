@@ -16,7 +16,7 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { FaSun, FaMoon, FaLaptop } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import {
   getTvSrch,
 } from "../../redux_system/slices/search_Slices/srchSlice";
 
+//nav list items function
 function NavList() {
   const { pathname: activePage } = useLocation();
 
@@ -83,15 +84,20 @@ function NavList() {
 }
 
 const NavBar = () => {
+  //mav bar stete
   const [search, setSearch] = useState("");
   const [srchType, setSrchType] = useState(true);
   const [openSrch, setOpenSrch] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(<FaSun />);
 
+  // reduz data
   const { theme } = useSelector((state) => state.config);
   const { srchResult } = useSelector((state) => state.search);
+
+  //navigate and dispatch
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //theme config
   const checkTheme = () => {
@@ -159,13 +165,22 @@ const NavBar = () => {
               onChange={(inp) => setSearch(inp.target.value)}
               value={search}
               className=" bg-white dark:bg-[#212529] "
-              onFocus={() => setOpenSrch(true)}
-              onBlur={() => setOpenSrch(false)}
-              onKeyUp={
+              onFocus={() => {
+                setOpenSrch(true);
                 srchType
                   ? dispatch(getMovieSrch(search))
-                  : dispatch(getTvSrch(search))
-              }
+                  : dispatch(getTvSrch(search));
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setOpenSrch(false);
+                }, 200);
+              }}
+              onKeyUp={() => {
+                srchType
+                  ? dispatch(getMovieSrch(search))
+                  : dispatch(getTvSrch(search));
+              }}
             />
 
             <Card
@@ -177,7 +192,14 @@ const NavBar = () => {
                 {srchResult.map((res, i) => (
                   <ListItem
                     key={i}
-                    className="hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
+                    className="!overflow-visible hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
+                    onClick={() => {
+                      navigate(
+                        `/${srchType ? "movie" : "tv"}/${res.id}/${
+                          srchType ? "title" : "name"
+                        }/${srchType ? res.title : res.name}`
+                      );
+                    }}
                   >
                     <ListItemPrefix>
                       <Avatar
@@ -192,11 +214,8 @@ const NavBar = () => {
                     </ListItemPrefix>
                     <div>
                       <Typography variant="h6">
-                        {srchType ? res?.title : res?.name}
+                        {srchType ? res?.title : res?.name}{" "}
                       </Typography>
-                      {/* <Typography variant="small" className="font-normal">
-                        Software Engineer @ Material Tailwind
-                      </Typography> */}
                     </div>
                   </ListItem>
                 ))}
@@ -209,6 +228,9 @@ const NavBar = () => {
             size="sm"
             className="rounded-lg "
             disabled={!search.length}
+            onClick={() =>
+              navigate(`/search/${search}/in/${srchType ? "movies" : "series"}`)
+            }
           >
             Search
           </Button>
@@ -217,8 +239,8 @@ const NavBar = () => {
             color="teal"
             size="sm"
             className="rounded-lg "
-            hidden={!srchType}
-            onClick={() => setSrchType(false)}
+            hidden={srchType}
+            onClick={() => setSrchType(true)}
           >
             movies Search
           </Button>
@@ -227,8 +249,8 @@ const NavBar = () => {
             color="red"
             size="sm"
             className="rounded-lg "
-            hidden={srchType}
-            onClick={() => setSrchType(true)}
+            hidden={!srchType}
+            onClick={() => setSrchType(false)}
           >
             series Search
           </Button>
@@ -285,6 +307,7 @@ const NavBar = () => {
           </MenuList>
         </Menu>
       </div>
+
       <Collapse open={openNav}>
         <NavList />
         {/* search */}
@@ -298,8 +321,22 @@ const NavBar = () => {
               onChange={(inp) => setSearch(inp.target.value)}
               value={search}
               className=" bg-white dark:bg-[#212529] "
-              onFocus={() => setOpenSrch(true)}
-              onBlur={() => setOpenSrch(false)}
+              onFocus={() => {
+                setOpenSrch(true);
+                srchType
+                  ? dispatch(getMovieSrch(search))
+                  : dispatch(getTvSrch(search));
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setOpenSrch(false);
+                }, 200);
+              }}
+              onKeyUp={() => {
+                srchType
+                  ? dispatch(getMovieSrch(search))
+                  : dispatch(getTvSrch(search));
+              }}
             />
           </div>
           <Button
@@ -308,6 +345,9 @@ const NavBar = () => {
             size="sm"
             className="rounded-lg "
             disabled={!search.length}
+            onClick={() =>
+              navigate(`/search/${search}/in/${srchType ? "movies" : "series"}`)
+            }
           >
             Search
           </Button>
@@ -316,8 +356,8 @@ const NavBar = () => {
             color="teal"
             size="sm"
             className="rounded-lg "
-            hidden={!srchType}
-            onClick={() => setSrchType(false)}
+            hidden={srchType}
+            onClick={() => setSrchType(true)}
           >
             movies Search
           </Button>
@@ -326,8 +366,8 @@ const NavBar = () => {
             color="red"
             size="sm"
             className="rounded-lg "
-            hidden={srchType}
-            onClick={() => setSrchType(true)}
+            hidden={!srchType}
+            onClick={() => setSrchType(false)}
           >
             series Search
           </Button>
@@ -338,36 +378,36 @@ const NavBar = () => {
             }`}
           >
             <List className="bg-[#9daaf7] text-black dark:bg-[#212529] dark:text-gray-400 border-0 max-h-[300px] overflow-scroll">
-              <ListItem className="hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50">
-                <ListItemPrefix>
-                  <Avatar
-                    variant="circular"
-                    alt="candice"
-                    src="https://docs.material-tailwind.com/img/face-1.jpg"
-                  />
-                </ListItemPrefix>
-                <div>
-                  <Typography variant="h6">Tania Andrew</Typography>
-                  <Typography variant="small" className="font-normal">
-                    Software Engineer @ Material Tailwind
-                  </Typography>
-                </div>
-              </ListItem>
-              <ListItem className="hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50">
-                <ListItemPrefix>
-                  <Avatar
-                    variant="circular"
-                    alt="candice"
-                    src="https://docs.material-tailwind.com/img/face-1.jpg"
-                  />
-                </ListItemPrefix>
-                <div>
-                  <Typography variant="h6">Tania Andrew</Typography>
-                  <Typography variant="small" className="font-normal">
-                    Software Engineer @ Material Tailwind
-                  </Typography>
-                </div>
-              </ListItem>
+              {srchResult.map((res, i) => (
+                <ListItem
+                  key={i}
+                  className="!overflow-visible hover:!bg-[#7589fa] hover:text-black dark:hover:!bg-gray-700 dark:hover:text-gray-50"
+                  onClick={() => {
+                    navigate(
+                      `/${srchType ? "movie" : "tv"}/${res.id}/${
+                        srchType ? "title" : "name"
+                      }/${srchType ? res.title : res.name}`
+                    );
+                  }}
+                >
+                  <ListItemPrefix>
+                    <Avatar
+                      variant="circular"
+                      alt="candice"
+                      src={
+                        res?.poster_path
+                          ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${res?.poster_path}`
+                          : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg"
+                      }
+                    />
+                  </ListItemPrefix>
+                  <div>
+                    <Typography variant="h6">
+                      {srchType ? res?.title : res?.name}{" "}
+                    </Typography>
+                  </div>
+                </ListItem>
+              ))}
             </List>
           </Card>
         </div>
